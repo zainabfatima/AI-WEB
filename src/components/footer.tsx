@@ -76,6 +76,14 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+        <div>
+          <p>Let’s unlock the potential of AI for your business.</p>
+
+<p>📧 Email: contact@ai.com</p>
+<p>📞 Phone: +1 6784989204</p>
+<p>📍 Location: Remote & Global</p>
+
+        </div>
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
           <p className="text-gray-400">
             © 2024 AI Solutions. All rights reserved.

@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, Download } from "lucide-react";
+import { useLocation } from "wouter";
 
 export default function CTASection() {
+  const [_, setLocation] = useLocation();
   return (
     <section id="contact" className="py-20 gradient-accent">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -14,7 +16,7 @@ export default function CTASection() {
             consultation to explore the possibilities.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            <Button  onClick={()=>{setLocation("/consultation")}} className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
               <Calendar className="mr-2" size={20} />
               Book Free Consultation
             </Button>
