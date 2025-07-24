@@ -24,7 +24,10 @@ export default function Footer() {
               Transforming businesses through intelligent AI solutions. From
               strategy to execution, we're your trusted AI partner.
             </p>
-            <div className="flex space-x-4">
+            <p className="text-gray-400 mb-1">📧 zalasystems@gmail.com</p>
+            <p className="text-gray-400 mb-1">📞 +1 (555) 123-4567 | +1 (703) 568-3666</p>
+            <p className="text-gray-400 mb-1">📍 Remote & Global</p>
+            <div className="flex mt-4 space-x-4">
               <a
                 href="#"
                 className="text-gray-400 hover:text-accent transition-colors"
