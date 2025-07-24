@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Alert } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogHeader, DialogOverlay, DialogTitle} from '@/components/ui/dialog';
 import { Calendar } from "lucide-react";
-import { formSubmission } from "@/lib/resend";
 
 export default function CTASection() {
   return (
@@ -57,7 +56,7 @@ const BookConsultationForm = () => {
     try {
 
       console.log("Form Data Submitted:", formData);
-      await formSubmission(formData);
+      // await formSubmission(formData);
       setStatus("Message sent!");
       setFormData({ name: "", email: "", message: "" });
     } catch (err) {
