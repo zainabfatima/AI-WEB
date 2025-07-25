@@ -1,41 +1,41 @@
-// // pages/api/send-consultation.js
-// import { Resend } from 'resend';
+export async function formSubmission(formData) {
+    const { name, email, message } = formData;
 
-// const resend = new Resend("");
+    let emailTo : string | string[] = `${import.meta.env.VITE_CLIENT_EMAIL}`;
+    if (emailTo.includes(",")) {
+        emailTo = emailTo.split(","); // sent to all emails in the list
+    }
+ 
+    const data = {
+        to: emailTo,
+        subject: `New Consultation Request from ${name}`,
+        html: `
+            <h1>New Consultation Request</h1>
+            <p>You have received a new consultation request:</p>
+            <hr />
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Message:</strong><br/>${message}</p>
+        `,
+    }
 
-// export async function formSubmission(formData) {
-//     const { name, email, message } = formData;
+    return fetch(import.meta.env.VITE_SUPABASE_EMAIL_URL, 
+        {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+            },
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Email sent successfully:", data);
+            return data;
+        })
+        .catch(error => {
+            console.error("Error sending email:", error);
+            return { error: "Failed to send email" , errorMessage: error.message };
+        });
+}
 
-//     try {
-//         await resend.emails.send({
-//             from: "zainab.ned2@gmail.com", // Must be verified in Resend
-//             to: ["zainab.ned2@gmail.com"],
-//             subject: `New Consultation Request from ${name}`,
-//             html: `
-//         <p><strong>Name:</strong> ${name}</p>
-//         <p><strong>Email:</strong> ${email}</p>
-//         <p><strong>Message:</strong><br/>${message}</p>
-//       `,
-//         });
-//         console.log("Email sent successfully");
-//     } catch (err) {
-//         console.error("Resend error:", err);
-//     }
-// }
-
-
-
-// // export default async (req: NextApiRequest, res: NextApiResponse) => {
-// //     const { data, error } = await resend.emails.send({
-// //         from: 'Acme <onboarding@resend.dev>',
-// //         to: ['delivered@resend.dev'],
-// //         subject: 'Hello world',
-// //         react: EmailTemplate({ firstName: 'John' }),
-// //     });
-
-// //     if (error) {
-// //         return res.status(400).json(error);
-// //     }
-
-// //     res.status(200).json(data);
-// // };

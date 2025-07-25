@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Alert } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogHeader, DialogOverlay, DialogTitle} from '@/components/ui/dialog';
 import { Calendar } from "lucide-react";
+import { formSubmission } from "@/lib/resend";
 
 export default function CTASection() {
   return (
@@ -55,10 +56,13 @@ const BookConsultationForm = () => {
     setStatus("Sending...");
     try {
 
-      console.log("Form Data Submitted:", formData);
-      // await formSubmission(formData);
-      setStatus("Message sent!");
-      setFormData({ name: "", email: "", message: "" });
+      const response = await formSubmission(formData);
+      if (response.error) {
+        setStatus("Failed to send.");
+      } else {
+        setStatus("Message sent!");
+        setFormData({ name: "", email: "", message: "" });
+      }
     } catch (err) {
       setStatus("Failed to send.");
     }
@@ -83,11 +87,8 @@ const BookConsultationForm = () => {
                 <p className="text-sm">{status}</p>
               </Alert>
             )}
-            <h4 className="text-lg font-bold">Contact us on:</h4>
-            <p className="text-black mb-1">📧 zalasystems@gmail.com</p>
-            <p className="text-black mb-1">📞 +1 (555) 123-4567 | +1 (703) 568-3666</p>
-            <p className="text-black mb-1">📍 Remote & Global</p>
-            <form onSubmit={handleSubmit} className="hidden py-4 bg-white rounded max-w-md w-full space-y-4">
+            
+            <form onSubmit={handleSubmit} className="py-4 bg-white rounded max-w-md w-full space-y-4">
               <input
                 name="name"
                 placeholder="Enter Your Name"
